@@ -13,10 +13,13 @@ def index():
 def welcome():
     username = request.form['username']
     password = request.form['password']
+    vpasswrd = request.form['verify_password']
 
     username_error = ''
     password_error = ''
+    vpasswrd_error = ''
 
+    # username
     if (not username) or (username.strip() == ""):
         username_error = "That's not a valid username"
         username = ''
@@ -26,6 +29,7 @@ def welcome():
             username_error = "Username must be between 3 and 20 characters"
             username = ''
 
+    # password
     if (not password) or (password.strip() == ""):
         password_error = "That's not a valid password"
         password = ''
@@ -35,12 +39,20 @@ def welcome():
             password_error = "Your password must be between 3 and 20 characters"
             password = ''
 
-    if not username_error and not password_error:
+    # verify password
+    if password != vpasswrd:
+        vpasswrd_error = "Password doesn't match"
+        vpasswrd = ''
+    
+
+
+    if not vpasswrd_error and not password_error and not password_error:
         return render_template('welcome.html', username=username)
     else:
         return render_template('/signup.html', 
             username_error=username_error,
             password_error=password_error,
+            vpasswrd_error=vpasswrd_error,
             username=username)
 
 app.run()
