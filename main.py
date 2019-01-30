@@ -46,7 +46,7 @@ def welcome():
     
 
 
-    if not vpasswrd_error and not password_error and not password_error:
+    if not vpasswrd_error and not password_error and not username_error:
         return render_template('welcome.html', username=username)
     else:
         return render_template('/signup.html', 

@@ -42,6 +42,7 @@ def welcome():
     # password
     if (not password) or (password.strip() == ""):
         password_error = "That's not a valid password"
+        vpasswrd_error = "That's not a valid password"
         password = ''
     else:
         password = password
