@@ -10,6 +10,15 @@ app.config['DEBUG'] = True
 def index():
     return render_template('signup.html', title="home")
 
+# username verification helper function
+def usernameverification(username):
+    if len(username) > 0:
+        for space in username:
+            if space == ' ':
+                return False
+    if len(username) > 20 or len(username) < 3:
+        return False
+
 # password verification helper function
 def passwordverification(password):
     if len(password) > 0:
@@ -51,15 +60,10 @@ def welcome():
     if (not username) or (username.strip() == ""):
         username_error = "That's not a valid username"
         username = ''
-    elif len(username) > 0:
-        for space in username:
-            if space == ' ':
-                username_error = "No spaces allowed"
-                username = ''
     else:
         username = username
-        if len(username) > 20 or len(username) < 3:
-            username_error = "Username must be between 3 and 20 characters"
+        if usernameverification(username) == False:
+            username_error = "Username must be between 3 and 20 characters with no spaces"
             username = ''
 
     # password
